@@ -35,6 +35,7 @@ NodeMCU ESP8266 Pin:
 #define MAX_CHANNEL 4
 #define PIN_DHT11 0
 
+// const uint8 g_arLedPins[MAX_CHANNEL] = {D5, D6, D7, D8};
 const uint8 g_arLedPins[MAX_CHANNEL] = {14, 12, 13, 15};
 void InitLeds();
 DHTesp dht;
