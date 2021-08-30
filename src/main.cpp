@@ -33,7 +33,7 @@ NodeMCU ESP8266 Pin:
 
 #define MQTT_BROKER "54.255.200.207"
 #define MAX_CHANNEL 4
-#define PIN_DHT11 0
+#define PIN_DHT11 0 //D3
 
 // const uint8 g_arLedPins[MAX_CHANNEL] = {D5, D6, D7, D8};
 const uint8 g_arLedPins[MAX_CHANNEL] = {14, 12, 13, 15};
@@ -64,7 +64,7 @@ void setup() {
     Serial.println("mqtt receive[" + topic + "]: " + payload);
     if (topic==(g_strMqttTopicPrefix+"/leds") && payload.length()>=3)
     {
-      int nLed   = payload.charAt(0)-'1';
+      int nLed   = payload.charAt(0)-'1'; // '1' - '1' = 0
       int nValue = payload.charAt(2)-'0';
       if ((nLed>=0 && nLed<=3) && (nValue>=0 && nValue<=1))
         digitalWrite(g_arLedPins[nLed], nValue);
@@ -83,7 +83,7 @@ void loop() {
   if (!mqtt.connected()) 
     Mqtt_Connect();
 
-  if (nCount++>=5) // sent every 5 seconds
+  if (nCount++>=3) // sent every 5 seconds
   {
     nCount = 0;
     if (readDhtSensor(temp, hum))
